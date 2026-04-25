@@ -26,7 +26,6 @@
     font-weight: 300;
     font-size: 13px;
     line-height: 1.7;
-    cursor: none;
     overflow-x: hidden;
   }
   body::before {
@@ -898,6 +897,7 @@
   const ring = document.getElementById('cursor-ring');
 
   if (!isTouch) {
+    document.body.style.cursor = 'none';
     let mx = 0, my = 0, rx = 0, ry = 0;
 
     document.addEventListener('mousemove', e => {
