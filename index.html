@@ -475,6 +475,99 @@
     transform: translate(3px, -3px);
   }
 
+  /* TOOLING */
+  .tooling-item {
+    padding: 48px 0;
+    border-top: 1px solid var(--line);
+  }
+  .tooling-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 8px;
+  }
+  .tooling-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 400;
+  }
+  .tooling-badge {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border: 1px solid var(--line);
+    padding: 3px 10px;
+    border-radius: 2px;
+    background: rgba(0,0,0,0.03);
+  }
+  .tooling-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14px;
+    font-style: italic;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+  .tooling-desc {
+    font-size: 13px;
+    color: #666;
+    line-height: 2;
+    max-width: 640px;
+    margin-bottom: 20px;
+  }
+  .tooling-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 24px;
+  }
+  .tooling-feature {
+    font-size: 12px;
+    border: 1px solid rgba(0,0,0,0.15);
+    padding: 6px 14px;
+    border-radius: 100px;
+    transition: all 0.3s ease;
+    cursor: default;
+  }
+  .tooling-feature:hover {
+    background: var(--fg);
+    color: var(--bg);
+    border-color: var(--fg);
+    transform: translateY(-2px);
+  }
+  .tooling-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--fg);
+    text-decoration: none;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    padding: 8px 0;
+    position: relative;
+  }
+  .tooling-link::before {
+    content: '';
+    position: absolute;
+    bottom: 4px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--fg);
+    transition: width 0.3s ease;
+  }
+  .tooling-link:hover::before {
+    width: 100%;
+  }
+  .tooling-link-arrow {
+    display: inline-block;
+    transition: transform 0.3s ease;
+    font-size: 13px;
+  }
+  .tooling-link:hover .tooling-link-arrow {
+    transform: translate(3px, -3px);
+  }
+
   /* FOOTER */
   footer {
     padding: 80px 0 60px;
@@ -542,6 +635,12 @@
     .project-item:hover .project-num { color: rgba(0,0,0,0.05); transform: none; }
     .project-item:hover .project-name { transform: none; }
     .project-item:hover .project-line { width: 32px; }
+    .tooling-feature:hover {
+      background: transparent;
+      color: var(--fg);
+      border-color: rgba(0,0,0,0.15);
+      transform: none;
+    }
   }
 
   /* Tablet & mobile */
@@ -589,6 +688,12 @@
     .project-highlights { font-size: 11px; line-height: 1.8; }
     .project-link { font-size: 11px; }
 
+    .tooling-item { padding: 36px 0; }
+    .tooling-name { font-size: 24px; }
+    .tooling-subtitle { font-size: 13px; }
+    .tooling-desc { font-size: 12px; }
+    .tooling-feature { font-size: 11px; padding: 5px 12px; }
+
     footer { padding: 60px 0 40px; }
     .footer-name { font-size: 22px; }
     .footer-copy { font-size: 10px; }
@@ -620,6 +725,11 @@
     .project-name { font-size: 22px; }
     .project-desc { font-size: 12px; }
     .project-highlights { font-size: 10px; }
+
+    .tooling-item { padding: 28px 0; }
+    .tooling-name { font-size: 22px; }
+    .tooling-desc { font-size: 12px; }
+    .tooling-feature { font-size: 10px; padding: 4px 10px; }
   }
 </style>
 </head>
@@ -632,6 +742,7 @@
   <a href="#" class="nav-logo">FTY</a>
   <ul class="nav-links">
     <li><a href="#skills">技能</a></li>
+    <li><a href="#tooling">工作流</a></li>
     <li><a href="#projects">项目</a></li>
     <li><a href="#contact">联系</a></li>
   </ul>
@@ -777,9 +888,36 @@
     </div>
   </section>
 
-  <section id="projects">
+  <section id="tooling">
     <div class="section-header">
       <span class="section-num reveal">02</span>
+      <h2 class="section-title">工作流扩展</h2>
+    </div>
+    <div class="tooling-item reveal">
+      <div class="tooling-header">
+        <div class="tooling-name">idea-interview</div>
+        <span class="tooling-badge">Kira Code Skill</span>
+      </div>
+      <div class="tooling-subtitle">全能项目访谈与探讨专家</div>
+      <div class="tooling-desc">
+        基于 Kira Code Skill 扩展机制构建的结构化项目讨论工具。支持自由访谈与项目探讨双模式，通过六阶段流水线（触发检测 → 会话恢复 → 模式定向 → 证据采集 → 结构化讨论 → 文档同步）将模糊需求收敛为可执行方案，讨论成果自动沉淀为 Markdown 交付文档。
+      </div>
+      <div class="tooling-features">
+        <span class="tooling-feature">双模式访谈</span>
+        <span class="tooling-feature">证据驱动分析</span>
+        <span class="tooling-feature">会话断点续传</span>
+        <span class="tooling-feature">ABCD 决策引导</span>
+        <span class="tooling-feature">文档自动同步</span>
+      </div>
+      <a href="https://github.com/SZU-FTY/idea-interview" target="_blank" class="tooling-link">
+        VIEW ON GITHUB <span class="tooling-link-arrow">↗</span>
+      </a>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="section-header">
+      <span class="section-num reveal">03</span>
       <h2 class="section-title">个人项目</h2>
     </div>
     <div class="projects-list">
@@ -851,29 +989,6 @@
           </div>
           <a href="https://github.com/SZU-FTY/PixNote" target="_blank" class="project-link">
             <span>github.com/SZU-FTY/PixNote</span>
-            <span class="project-link-arrow">↗</span>
-          </a>
-        </div>
-      </div>
-
-      <div class="project-item reveal">
-        <div class="project-header">
-          <div class="project-num">004</div>
-          <div class="project-header-text">
-            <div class="project-name">idea-interview</div>
-            <div class="project-tags">
-              <span class="project-tag">Claude Code Skill</span>
-            </div>
-          </div>
-        </div>
-        <div class="project-line"></div>
-        <div class="project-body">
-          <div>
-            <p class="project-desc">Claude Code 自定义 Skill，将 AI 变成结构化访谈引导者。通过逐步访谈帮助用户理清需求、探索方案，自动生成 Markdown 决策文档。</p>
-            <div class="project-highlights">6 步流水线（触发→恢复→定向→取证→讨论→同步） · 双模式访谈 · 跨会话断点续传 · ABCD 选项驱动</div>
-          </div>
-          <a href="https://github.com/SZU-FTY/idea-interview" target="_blank" class="project-link">
-            <span>github.com/SZU-FTY/idea-interview</span>
             <span class="project-link-arrow">↗</span>
           </a>
         </div>
