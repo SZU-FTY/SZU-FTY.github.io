@@ -571,14 +571,30 @@
         Reveal.on('ready', function() {
             var maxH = 750;
             document.querySelectorAll('.reveal .slides > section').forEach(function(sec) {
+                var fragments = sec.querySelectorAll('.fragment');
+                fragments.forEach(function(f) {
+                    f.classList.add('visible');
+                });
+
                 var wrapper = document.createElement('div');
                 wrapper.className = 'slide-scaler';
                 while (sec.firstChild) wrapper.appendChild(sec.firstChild);
                 sec.appendChild(wrapper);
+
+                void wrapper.offsetHeight;
                 var contentH = wrapper.scrollHeight;
-                if (contentH > maxH - 10) {
-                    wrapper.style.zoom = Math.max((maxH - 10) / contentH, 0.65);
+
+                if (contentH > maxH - 30) {
+                    var scale = Math.max((maxH - 30) / contentH, 0.6);
+                    wrapper.style.transformOrigin = 'top center';
+                    wrapper.style.transform = 'scale(' + scale + ')';
+                    wrapper.style.width = (100 / scale) + '%';
+                    wrapper.style.marginLeft = '-' + ((100 / scale - 100) / 2) + '%';
                 }
+
+                fragments.forEach(function(f) {
+                    f.classList.remove('visible');
+                });
             });
         });
     </script>
