@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/theme/white.css">
     <style>
-        .reveal .slides section { overflow: hidden; }
+        .reveal .slides section { overflow: visible; }
         .reveal h1 { font-size: 2.2em; color: #2c3e50; margin-bottom: 0.3em; }
         .reveal h2 { font-size: 1.6em; color: #34495e; margin-bottom: 0.3em; }
         .reveal h3 { font-size: 1.3em; color: #7f8c8d; }
@@ -566,6 +566,20 @@
             width: 960,
             height: 750,
             margin: 0.04
+        });
+
+        Reveal.on('ready', function() {
+            var maxH = 750;
+            document.querySelectorAll('.reveal .slides > section').forEach(function(sec) {
+                var wrapper = document.createElement('div');
+                wrapper.className = 'slide-scaler';
+                while (sec.firstChild) wrapper.appendChild(sec.firstChild);
+                sec.appendChild(wrapper);
+                var contentH = wrapper.scrollHeight;
+                if (contentH > maxH - 10) {
+                    wrapper.style.zoom = Math.max((maxH - 10) / contentH, 0.65);
+                }
+            });
         });
     </script>
 </body>
