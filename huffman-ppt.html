@@ -7,21 +7,22 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/theme/white.css">
     <style>
-        /* ====== 自适应字体：基于视口高度的 clamp() ====== */
-        .reveal h1 { font-size: clamp(1rem, 3.5vh, 2.2rem); color: #2c3e50; margin-bottom: 0.2em; }
-        .reveal h2 { font-size: clamp(0.75rem, 2.5vh, 1.4rem); color: #34495e; margin-bottom: 0.2em; }
-        .reveal h3 { font-size: clamp(0.65rem, 2vh, 1.1rem); color: #7f8c8d; margin-bottom: 0.15em; }
-        .reveal p { margin: 0.15em 0; font-size: clamp(0.6rem, 1.8vh, 1rem); line-height: 1.35; }
-        .reveal ul, .reveal ol { margin: 0.2em 0; }
-        .reveal li { margin: 0.1em 0; font-size: clamp(0.55rem, 1.7vh, 0.95rem); line-height: 1.35; }
-        .reveal table { font-size: clamp(0.45rem, 1.5vh, 0.8rem); margin: 0.2em auto; }
-        .reveal td, .reveal th { padding: 3px 5px; border: 1px solid #ddd; }
+        /* ====== 画布字体：纯 em 体系，由 Reveal.js 统一缩放 ====== */
+        .reveal { font-size: 28px; }
+        .reveal h1 { font-size: 1.8em; color: #2c3e50; margin-bottom: 0.3em; }
+        .reveal h2 { font-size: 1.2em; color: #34495e; margin-bottom: 0.3em; }
+        .reveal h3 { font-size: 0.95em; color: #7f8c8d; margin-bottom: 0.2em; }
+        .reveal p { margin: 0.2em 0; font-size: 0.85em; line-height: 1.4; }
+        .reveal ul, .reveal ol { margin: 0.3em 0; }
+        .reveal li { margin: 0.15em 0; font-size: 0.82em; line-height: 1.4; }
+        .reveal table { font-size: 0.7em; margin: 0.3em auto; }
+        .reveal td, .reveal th { padding: 4px 6px; border: 1px solid #ddd; }
         .highlight { color: #e74c3c; font-weight: bold; }
         .tree-node { fill: #3498db; stroke: #2c3e50; stroke-width: 2; }
-        .tree-text { fill: white; font-size: 11px; font-weight: bold; }
+        .tree-text { fill: white; font-size: 14px; font-weight: bold; }
         .tree-edge { stroke: #2c3e50; stroke-width: 1.5; fill: none; }
-        .tree-label { font-size: 10px; fill: #e74c3c; }
-        .code-box { background: #f8f9fa; padding: 8px; border-radius: 5px; font-family: monospace; font-size: 0.8em; }
+        .tree-label { font-size: 13px; fill: #e74c3c; }
+        .code-box { background: #f8f9fa; padding: 8px; border-radius: 5px; font-family: monospace; font-size: 0.85em; }
 
         /* ====== SVG 响应式 ====== */
         .reveal .slides section svg {
@@ -29,13 +30,11 @@
             height: auto;
             display: block;
             margin: 0 auto;
-            /* 限制最大高度，防止超大SVG撑爆页面 */
-            max-height: 50vh;
         }
 
         /* ====== Section 布局 ====== */
         .reveal .slides section {
-            padding: 1vh 2vw !important;
+            padding: 20px 30px !important;
             box-sizing: border-box;
             height: 100%;
             display: flex;
@@ -44,11 +43,11 @@
         }
 
         .reveal .slides section > div {
-            margin: 0.15em 0;
-            /* 内容溢出时显示滚动条，比隐藏或缩放更好 */
-            overflow-y: auto;
-            max-height: 100%;
+            margin: 0.2em 0;
         }
+
+        /* 双栏布局辅助 */
+        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5em; text-align: left; }
     </style>
 </head>
 <body>
@@ -468,38 +467,10 @@
             controls: true,
             progress: true,
             center: false,
-            slideNumber: 'c/t'
-        });
-
-        // ====== 自动高度适应 ======
-        // 不缩放，而是让 CSS clamp() + SVG max-height + overflow-y: auto 自然适应
-        // 这避免了 transform:scale() 导致的布局偏移问题
-
-        function adjustSlideLayout() {
-            const slides = document.querySelectorAll('.reveal .slides section');
-            const revealEl = document.querySelector('.reveal');
-            const containerH = revealEl ? revealEl.clientHeight : window.innerHeight;
-
-            slides.forEach(slide => {
-                const divs = slide.querySelectorAll(':scope > div');
-                divs.forEach(div => {
-                    // 如果内容超出，启用滚动；否则居中显示
-                    if (div.scrollHeight > containerH * 0.85) {
-                        div.style.overflowY = 'auto';
-                    } else {
-                        div.style.overflowY = 'visible';
-                    }
-                });
-            });
-        }
-
-        Reveal.on('ready', adjustSlideLayout);
-        Reveal.on('slidechanged', adjustSlideLayout);
-
-        let resizeTimer;
-        window.addEventListener('resize', () => {
-            clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(adjustSlideLayout, 200);
+            slideNumber: 'c/t',
+            width: 960,
+            height: 700,
+            margin: 0.04
         });
     </script>
 </body>
