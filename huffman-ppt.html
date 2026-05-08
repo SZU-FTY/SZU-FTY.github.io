@@ -58,7 +58,7 @@
                 <p style="color: #7f8c8d;">最优前缀码的贪心构造算法</p>
             </section>
 
-            <!-- 第一章：引入 — 为什么需要编码？(3页) -->
+            <!-- 第一章：引入 — 为什么需要编码？(2页) -->
 
             <!-- 第2页：编码问题：等长编码的浪费 -->
             <section>
@@ -81,52 +81,18 @@
                 </div>
             </section>
 
-            <!-- 第3页：核心挑战 -->
+            <!-- 第3页：核心挑战与哈夫曼的贡献 -->
             <section>
-                <h2>核心挑战</h2>
+                <h2>核心挑战与哈夫曼的贡献</h2>
                 <div style="text-align: left; margin: 0 15px;">
-                    <p class="fragment">💡 能否让<span class="highlight">高频字符</span>用<span class="highlight">更短</span>的编码？</p>
-                    <p class="fragment">→ 引出<strong>变长编码</strong>的思路</p>
-                    <div class="fragment" style="padding: 12px; background: #fff3cd; border-radius: 5px;">
-                        <p><strong>⚠️ 但是...</strong></p>
-                        <p>变长编码有<span class="highlight">歧义问题</span>：</p>
-                        <p>假设 A=0, B=01，收到 "001" 是 "AAB" 还是 "AB"？</p>
+                    <div style="padding: 10px; background: #fff3cd; border-radius: 5px; margin-bottom: 0.5em;">
+                        <p><strong>⚠️ 核心挑战</strong>：高频字符用短编码 → 变长编码有<span class="highlight">歧义问题</span></p>
+                        <p style="margin-top: 0.2em; font-size: 0.9em;">A=0, B=01 → "001" 是 "AAB" 还是 "AB"？</p>
                     </div>
-                </div>
-            </section>
-
-            <!-- 第二章：前缀码 — 解决歧义的关键(2页) -->
-
-            <!-- 第4页：变长编码的歧义+前缀码 -->
-            <section>
-                <h2>变长编码的歧义 + 前缀码</h2>
-                <div style="text-align: left; margin: 0 15px;">
-                    <div style="padding: 12px; background: #f8d7da; border-radius: 5px; margin-bottom: 1em;">
-                        <p><strong>反例</strong>：A=0, B=01</p>
-                        <p>收到 <span class="highlight">001</span></p>
-                        <p>是 "AAB"（0|0|01）还是 "AB"（0|01）？</p>
-                        <p style="color: #e74c3c;">❌ 无法确定！因为 "0" 是 "01" 的<span class="highlight">前缀</span></p>
-                    </div>
-                    <div class="fragment" style="padding: 12px; background: #d4edda; border-radius: 5px;">
-                        <p><strong>前缀码定义</strong>：任何字符的编码都<span class="highlight">不是</span>另一个字符编码的前缀</p>
-                        <p style="color: #27ae60;">✓ 前缀码可以无歧义解码</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 第5页：哈夫曼的贡献 -->
-            <section>
-                <h2>哈夫曼的贡献</h2>
-                <div style="text-align: left; margin: 0 15px;">
-                    <p><strong>贪心直觉</strong>：</p>
-                    <ul>
-                        <li>频率<span class="highlight">越高</span> → 编码<span class="highlight">越短</span></li>
-                        <li>频率<span class="highlight">越低</span> → 编码<span class="highlight">越长</span></li>
-                    </ul>
-                    <div class="fragment" style="padding: 12px; background: #e8f4fd; border-radius: 5px;">
-                        <p><strong>David Huffman（1952）</strong></p>
-                        <p>MIT研究生，发明了构造<span class="highlight">最优前缀码</span>的系统方法</p>
-                        <p>→ 用<strong>二叉树</strong>表示编码，保证<strong>WPL最小</strong></p>
+                    <p class="fragment"><strong>贪心直觉</strong>：频率<span class="highlight">越高</span> → 编码<span class="highlight">越短</span>；频率<span class="highlight">越低</span> → 编码<span class="highlight">越长</span></p>
+                    <div class="fragment" style="padding: 10px; background: #e8f4fd; border-radius: 5px;">
+                        <p><strong>David Huffman（1952）</strong>：MIT研究生，发明构造<span class="highlight">最优前缀码</span>的系统方法</p>
+                        <p style="margin-top: 0.15em;">用<strong>二叉树</strong>表示编码，保证<strong>WPL最小</strong></p>
                     </div>
                 </div>
             </section>
@@ -387,20 +353,32 @@
 
             <!-- 第五章：理论分析(3页) -->
 
-            <!-- 第15页：最优性 -->
+            <!-- 第15页：最优性与时间复杂度 -->
             <section>
-                <h2>最优性</h2>
-                <div style="text-align: left; margin: 0 15px; font-size: 0.9em;">
-                    <p><strong>定理</strong>：哈夫曼编码是<span class="highlight">最优前缀码</span></p>
-                    <p style="margin-top: 0.5em;">即：在所有前缀码中，哈夫曼编码的<span class="highlight">加权路径长度（WPL）最小</span></p>
-                    <div class="fragment" style="margin-top: 0.8em; padding: 12px; background: #e8f4fd; border-radius: 5px;">
-                        <p><strong>直觉解释</strong>：</p>
-                        <p style="margin-top: 0.3em;">贪心策略确保：</p>
-                        <ul style="margin-top: 0.3em;">
-                            <li>频率最低的字符在树的最深处（编码最长）</li>
-                            <li>频率最高的字符靠近根（编码最短）</li>
-                            <li>每一步都做出局部最优选择，最终达到全局最优</li>
-                        </ul>
+                <h2>最优性与时间复杂度</h2>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1em; text-align: left; margin: 0 10px;">
+                    <div>
+                        <div style="padding: 10px; background: #e8f4fd; border-radius: 5px; height: 100%;">
+                            <p><strong>定理</strong>：哈夫曼编码是<span class="highlight">最优前缀码</span></p>
+                            <p style="margin-top: 0.3em;">加权路径长度（WPL）<span class="highlight">最小</span></p>
+                            <ul style="margin-top: 0.4em; font-size: 0.9em;">
+                                <li>频率最低 → 树最深 → 编码最长</li>
+                                <li>频率最高 → 靠近根 → 编码最短</li>
+                                <li>局部最优 → 全局最优</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div style="padding: 10px; background: #d4edda; border-radius: 5px; height: 100%;">
+                            <p><strong>总复杂度</strong>：<span class="highlight">O(n log n)</span></p>
+                            <table style="margin-top: 0.3em; font-size: 0.85em;">
+                                <tr><th>操作</th><th>复杂度</th><th>次数</th></tr>
+                                <tr><td>建堆</td><td>O(n)</td><td>1次</td></tr>
+                                <tr><td>取最小值</td><td>O(log n)</td><td>2(n-1)</td></tr>
+                                <tr><td>插入</td><td>O(log n)</td><td>n-1</td></tr>
+                            </table>
+                            <p style="margin-top: 0.3em; font-size: 0.85em;">n = 字符种类数</p>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -429,73 +407,33 @@
                 </div>
             </section>
 
-            <!-- 第17页：时间复杂度 -->
+            <!-- 第六章：实际应用 -->
+
+            <!-- 第18页：实际应用 -->
             <section>
-                <h2>时间复杂度</h2>
-                <div style="text-align: left; margin: 0 15px; font-size: 0.9em;">
-                    <p><strong>使用最小堆实现</strong>：</p>
-                    <table style="margin-top: 0.8em; font-size: 0.82em;">
-                        <tr><th>操作</th><th>复杂度</th><th>次数</th></tr>
-                        <tr><td>建堆</td><td>O(n)</td><td>1次</td></tr>
-                        <tr><td>取最小值</td><td>O(log n)</td><td>2×(n-1)次</td></tr>
-                        <tr><td>插入新节点</td><td>O(log n)</td><td>n-1次</td></tr>
-                    </table>
-                    <div class="fragment" style="margin-top: 0.8em; padding: 12px; background: #e8f4fd; border-radius: 5px;">
-                        <p><strong>总复杂度</strong>：</p>
-                        <p style="margin-top: 0.3em;">O(n) + O(n log n) = <span class="highlight">O(n log n)</span></p>
-                        <p style="margin-top: 0.4em; font-size: 0.9em;">其中 n 是字符种类数</p>
+                <h2>实际应用</h2>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.6em; text-align: left; margin: 0 10px;">
+                    <div class="fragment" style="padding: 10px; background: #e8f4fd; border-radius: 5px;">
+                        <p><strong>ZIP / GZIP</strong></p>
+                        <p style="font-size: 0.85em;">DEFLATE = LZ77 + 哈夫曼编码</p>
+                        <p style="margin-top: 0.3em;"><strong>JPEG</strong></p>
+                        <p style="font-size: 0.85em;">DCT → 量化 → 哈夫曼编码</p>
+                    </div>
+                    <div class="fragment" style="padding: 10px; background: #d4edda; border-radius: 5px;">
+                        <p><strong>MP3 音频</strong></p>
+                        <p style="font-size: 0.85em;">心理声学模型 → 哈夫曼编码</p>
+                        <p style="margin-top: 0.3em;"><strong>HTTP/2 (HPACK)</strong></p>
+                        <p style="font-size: 0.85em;">静态哈夫曼表压缩HTTP头部</p>
                     </div>
                 </div>
-            </section>
-
-            <!-- 第六章：实际应用(2页) -->
-
-            <!-- 第18页：文件压缩 -->
-            <section>
-                <h2>文件压缩</h2>
-                <div style="text-align: left; margin: 0 15px; font-size: 0.88em;">
-                    <p><strong>ZIP / GZIP</strong>：</p>
-                    <ul style="margin-top: 0.4em;">
-                        <li>DEFLATE算法 = LZ77（字典压缩）+ 哈夫曼编码</li>
-                        <li>哈夫曼编码用于压缩LZ77的输出</li>
-                    </ul>
-                    <p class="fragment" style="margin-top: 0.8em;"><strong>JPEG图像压缩</strong>：</p>
-                    <ul class="fragment" style="margin-top: 0.4em;">
-                        <li>DCT变换 → 量化 → <span class="highlight">哈夫曼编码</span></li>
-                        <li>对量化后的系数进行无损压缩</li>
-                    </ul>
-                    <div class="fragment" style="margin-top: 0.8em; padding: 12px; background: #e8f4fd; border-radius: 5px;">
-                        <p><strong>💡 关键特点</strong>：</p>
-                        <p style="margin-top: 0.3em;">哈夫曼编码是<strong>无损压缩</strong>，可以完美还原原始数据</p>
-                    </div>
+                <div class="fragment" style="margin-top: 0.5em; padding: 8px 12px; background: #fff3cd; border-radius: 5px; text-align: left; margin-left: 10px; margin-right: 10px;">
+                    <p><strong>关键特点</strong>：哈夫曼编码是<span class="highlight">无损压缩</span>，可完美还原原始数据</p>
                 </div>
             </section>
 
-            <!-- 第19页：多媒体与通信 -->
-            <section>
-                <h2>多媒体与通信</h2>
-                <div style="text-align: left; margin: 0 15px; font-size: 0.88em;">
-                    <p><strong>MP3音频压缩</strong>：</p>
-                    <ul style="margin-top: 0.4em;">
-                        <li>心理声学模型 → 量化 → 哈夫曼编码</li>
-                        <li>减少音频文件大小，保持听觉质量</li>
-                    </ul>
-                    <p class="fragment" style="margin-top: 0.8em;"><strong>传真机（早期应用）</strong>：</p>
-                    <ul class="fragment" style="margin-top: 0.4em;">
-                        <li>使用改进的哈夫曼编码压缩黑白图像</li>
-                        <li>减少传输时间和成本</li>
-                    </ul>
-                    <p class="fragment" style="margin-top: 0.8em;"><strong>HTTP/2头部压缩（HPACK）</strong>：</p>
-                    <ul class="fragment" style="margin-top: 0.4em;">
-                        <li>使用静态哈夫曼编码表压缩HTTP头部</li>
-                        <li>减少网络传输开销</li>
-                    </ul>
-                </div>
-            </section>
+            <!-- 第七章：总结 -->
 
-            <!-- 第七章：总结(3页) -->
-
-            <!-- 第20页：核心要点回顾 -->
+            <!-- 第19页：核心要点回顾 -->
             <section>
                 <h2>核心要点回顾</h2>
                 <div style="text-align: left; margin: 0 15px; font-size: 0.85em;">
