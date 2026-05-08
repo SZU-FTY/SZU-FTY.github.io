@@ -7,21 +7,23 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/theme/white.css">
     <style>
-        .reveal .slides section { overflow: visible; }
-        .reveal h1 { font-size: 2.2em; color: #2c3e50; margin-bottom: 0.3em; }
-        .reveal h2 { font-size: 1.6em; color: #34495e; margin-bottom: 0.3em; }
-        .reveal h3 { font-size: 1.3em; color: #7f8c8d; }
-        .reveal p { margin: 8px 0; }
-        .reveal ul, .reveal ol { margin: 8px 0; }
-        .reveal li { margin: 4px 0; }
-        .reveal table { font-size: 0.75em; margin: 10px auto; }
-        .reveal td, .reveal th { padding: 6px 10px; border: 1px solid #ddd; }
+        .reveal h1 { font-size: 2.5em; color: #2c3e50; }
+        .reveal h2 { font-size: 2em; color: #34495e; }
+        .reveal h3 { font-size: 1.5em; color: #7f8c8d; }
+        .reveal table { font-size: 0.8em; margin: 20px auto; }
+        .reveal td, .reveal th { padding: 10px; border: 1px solid #ddd; }
         .highlight { color: #e74c3c; font-weight: bold; }
         .tree-node { fill: #3498db; stroke: #2c3e50; stroke-width: 2; }
         .tree-text { fill: white; font-size: 14px; font-weight: bold; }
         .tree-edge { stroke: #2c3e50; stroke-width: 2; fill: none; }
         .tree-label { font-size: 12px; fill: #e74c3c; }
-        .code-box { background: #f8f9fa; padding: 10px; border-radius: 5px; font-family: monospace; }
+        .code-box { background: #f8f9fa; padding: 15px; border-radius: 5px; font-family: monospace; }
+
+        .reveal .slides section {
+            overflow-y: auto !important;
+            padding: 20px 40px !important;
+            box-sizing: border-box;
+        }
     </style>
 </head>
 <body>
@@ -31,7 +33,7 @@
             <section>
                 <h1>哈夫曼编码</h1>
                 <h3>Huffman Coding</h3>
-                <p style="margin-top: 30px;">数据结构课程</p>
+                <p style="margin-top: 50px;">数据结构课程</p>
                 <p style="font-size: 0.8em; color: #7f8c8d;">最优前缀码的贪心构造算法</p>
             </section>
 
@@ -39,8 +41,8 @@
 
             <!-- 第2页：编码问题：等长编码的浪费 -->
             <section>
-                <h2 style="font-size: 1.8em;">编码问题：等长编码的浪费</h2>
-                <div style="text-align: left; margin: 20px;">
+                <h2>编码问题：等长编码的浪费</h2>
+                <div style="text-align: left; margin: 40px;">
                     <p><strong>ASCII编码</strong>：每个字符用 <span class="highlight">8位</span> 表示</p>
                     <p style="margin-top: 20px;"><strong>示例字符串</strong>：<span class="highlight" style="font-size: 1.3em;">ABRACADABRA</span></p>
                     <table style="margin-top: 20px;">
@@ -61,10 +63,10 @@
             <!-- 第3页：核心挑战 -->
             <section>
                 <h2>核心挑战</h2>
-                <div style="text-align: left; margin: 20px; font-size: 1.0em;">
+                <div style="text-align: left; margin: 40px; font-size: 1.1em;">
                     <p class="fragment">💡 能否让<span class="highlight">高频字符</span>用<span class="highlight">更短</span>的编码？</p>
-                    <p class="fragment" style="margin-top: 25px;">→ 引出<strong>变长编码</strong>的思路</p>
-                    <div class="fragment" style="margin-top: 30px; padding: 20px; background: #fff3cd; border-radius: 5px;">
+                    <p class="fragment" style="margin-top: 40px;">→ 引出<strong>变长编码</strong>的思路</p>
+                    <div class="fragment" style="margin-top: 50px; padding: 20px; background: #fff3cd; border-radius: 5px;">
                         <p><strong>⚠️ 但是...</strong></p>
                         <p>变长编码有<span class="highlight">歧义问题</span>：</p>
                         <p style="margin-top: 10px;">假设 A=0, B=01，收到 "001" 是 "AAB" 还是 "AB"？</p>
@@ -77,7 +79,7 @@
             <!-- 第4页：变长编码的歧义+前缀码 -->
             <section>
                 <h2>变长编码的歧义 + 前缀码</h2>
-                <div style="text-align: left; margin: 20px;">
+                <div style="text-align: left; margin: 40px;">
                     <div style="padding: 20px; background: #f8d7da; border-radius: 5px; margin-bottom: 30px;">
                         <p><strong>反例</strong>：A=0, B=01</p>
                         <p style="margin-top: 10px;">收到 <span class="highlight" style="font-size: 1.3em;">001</span></p>
@@ -94,13 +96,13 @@
             <!-- 第5页：哈夫曼的贡献 -->
             <section>
                 <h2>哈夫曼的贡献</h2>
-                <div style="text-align: left; margin: 20px; font-size: 1.0em;">
+                <div style="text-align: left; margin: 40px; font-size: 1.1em;">
                     <p><strong>贪心直觉</strong>：</p>
                     <ul style="margin-top: 20px;">
                         <li>频率<span class="highlight">越高</span> → 编码<span class="highlight">越短</span></li>
                         <li>频率<span class="highlight">越低</span> → 编码<span class="highlight">越长</span></li>
                     </ul>
-                    <div class="fragment" style="margin-top: 25px; padding: 20px; background: #e8f4fd; border-radius: 5px;">
+                    <div class="fragment" style="margin-top: 40px; padding: 20px; background: #e8f4fd; border-radius: 5px;">
                         <p><strong>David Huffman（1952）</strong></p>
                         <p style="margin-top: 10px;">MIT研究生，发明了构造<span class="highlight">最优前缀码</span>的系统方法</p>
                         <p style="margin-top: 10px;">→ 用<strong>二叉树</strong>表示编码，保证<strong>WPL最小</strong></p>
@@ -112,7 +114,7 @@
 
             <!-- 第6页：算法输入+步骤 -->
             <section>
-                <h2 style="font-size: 1.7em;">构建哈夫曼树 — 算法输入 + 步骤</h2>
+                <h2>构建哈夫曼树 — 算法输入 + 步骤</h2>
                 <div style="margin: 30px;">
                     <p style="text-align: left;"><strong>输入</strong>：频率表（每个字符作为叶节点）</p>
                     <svg width="700" height="150" style="margin-top: 20px;">
@@ -156,7 +158,7 @@
                     <p style="margin-top: 15px;">→ 4个节点：A(5), B(2), R(2), <span style="color: #e67e22;">CD(2)</span></p>
 
                     <p class="fragment" style="text-align: left; margin-top: 30px;"><strong>第2步</strong>：B(2) + CD(2) → BCD(4)</p>
-                    <svg class="fragment" width="700" height="190" style="margin-top: 10px;">
+                    <svg class="fragment" width="700" height="150" style="margin-top: 10px;">
                         <circle cx="480" cy="30" r="25" style="fill: #27ae60; stroke: #2c3e50; stroke-width: 2;"/>
                         <text x="480" y="35" text-anchor="middle" class="tree-text">4</text>
                         <line x1="465" y1="50" x2="400" y2="80" class="tree-edge"/>
@@ -181,7 +183,7 @@
                 <h2>构建演示（第3-4步）</h2>
                 <div style="margin: 15px;">
                     <p style="text-align: left;"><strong>第3步</strong>：R(2) + BCD(4) → RBCD(6)</p>
-                    <svg width="700" height="230" style="margin-top: 5px;">
+                    <svg width="700" height="180" style="margin-top: 5px;">
                         <circle cx="430" cy="25" r="25" style="fill: #8e44ad; stroke: #2c3e50; stroke-width: 2;"/>
                         <text x="430" y="30" text-anchor="middle" class="tree-text">6</text>
                         <line x1="410" y1="45" x2="350" y2="75" class="tree-edge"/>
@@ -212,7 +214,7 @@
             <section>
                 <h2>完整哈夫曼树</h2>
                 <div style="margin: 10px;">
-                    <svg width="700" height="360" style="margin-top: 5px;">
+                    <svg width="700" height="320" style="margin-top: 5px;">
                         <circle cx="350" cy="30" r="28" style="fill: #2c3e50; stroke: #2c3e50; stroke-width: 2;"/>
                         <text x="350" y="35" text-anchor="middle" class="tree-text">11</text>
                         <line x1="325" y1="53" x2="200" y2="100" class="tree-edge"/>
@@ -256,13 +258,13 @@
             <!-- 第10页：为什么这样构建？ -->
             <section>
                 <h2>为什么这样构建？</h2>
-                <div style="text-align: left; margin: 20px; font-size: 1.0em;">
+                <div style="text-align: left; margin: 40px; font-size: 1.1em;">
                     <p class="fragment"><strong>直觉解释</strong>：</p>
                     <ul class="fragment" style="margin-top: 20px;">
                         <li>频率<span class="highlight">低</span>的字符<strong>先</strong>合并 → 在树的<strong>深处</strong> → 编码<strong>更长</strong></li>
                         <li>频率<span class="highlight">高</span>的字符<strong>后</strong>合并 → 靠近<strong>根</strong> → 编码<strong>更短</strong></li>
                     </ul>
-                    <div class="fragment" style="margin-top: 25px; padding: 20px; background: #e8f4fd; border-radius: 5px;">
+                    <div class="fragment" style="margin-top: 40px; padding: 20px; background: #e8f4fd; border-radius: 5px;">
                         <p><strong>贪心策略的本质</strong>：</p>
                         <p style="margin-top: 10px;">每次合并最小的两个节点，确保低频字符被"推"到树的最深处，从而获得最长的编码</p>
                     </div>
@@ -324,9 +326,9 @@
             </section>
 
             <!-- 第13页：解码过程 -->
-            <section style="justify-content: flex-start !important;">
+            <section>
                 <h2>解码过程</h2>
-                <div style="text-align: left; margin: 20px; font-size: 1.0em;">
+                <div style="text-align: left; margin: 40px; font-size: 1.05em;">
                     <p><strong>算法</strong>：</p>
                     <ol style="margin-top: 20px;">
                         <li>从根节点开始</li>
@@ -339,7 +341,7 @@
                         <li>到达叶节点 → 输出字符，回到根</li>
                         <li>重复直到比特流结束</li>
                     </ol>
-                    <div class="fragment" style="margin-top: 25px; padding: 20px; background: #e8f4fd; border-radius: 5px;">
+                    <div class="fragment" style="margin-top: 40px; padding: 20px; background: #e8f4fd; border-radius: 5px;">
                         <p><strong>无歧义性保证</strong>：</p>
                         <p style="margin-top: 10px;">前缀码性质 → 每个字符对应唯一的叶节点 → 解码路径唯一</p>
                     </div>
@@ -349,11 +351,11 @@
             <!-- 第14页：解码演示 -->
             <section>
                 <h2>解码演示</h2>
-                <div style="margin: 25px 25px 50px 25px;">
+                <div style="margin: 25px;">
                     <p style="text-align: left;"><strong>比特流</strong>：<span class="highlight" style="font-family: monospace;">0·110·10·0·1110·0·1111·0·110·10·0</span></p>
                     <div style="margin-top: 25px; padding: 20px; background: #f8f9fa; border-radius: 5px; text-align: left; font-size: 0.95em;">
                         <p><strong>逐步解码</strong>：</p>
-                        <ul style="margin-top: 15px; line-height: 1.4;">
+                        <ul style="margin-top: 15px; line-height: 1.8;">
                             <li>读 <span class="highlight">0</span> → 左 → 到达A → 输出 <strong>A</strong></li>
                             <li>读 <span class="highlight">1</span> → 右，读 <span class="highlight">1</span> → 右，读 <span class="highlight">0</span> → 左 → 到达B → 输出 <strong>B</strong></li>
                             <li>读 <span class="highlight">1</span> → 右，读 <span class="highlight">0</span> → 左 → 到达R → 输出 <strong>R</strong></li>
@@ -376,10 +378,10 @@
             <!-- 第15页：最优性 -->
             <section>
                 <h2>最优性</h2>
-                <div style="text-align: left; margin: 20px; font-size: 1.0em;">
+                <div style="text-align: left; margin: 40px; font-size: 1.1em;">
                     <p><strong>定理</strong>：哈夫曼编码是<span class="highlight">最优前缀码</span></p>
                     <p style="margin-top: 20px;">即：在所有前缀码中，哈夫曼编码的<span class="highlight">加权路径长度（WPL）最小</span></p>
-                    <div class="fragment" style="margin-top: 25px; padding: 20px; background: #e8f4fd; border-radius: 5px;">
+                    <div class="fragment" style="margin-top: 40px; padding: 20px; background: #e8f4fd; border-radius: 5px;">
                         <p><strong>直觉解释</strong>：</p>
                         <p style="margin-top: 10px;">贪心策略确保：</p>
                         <ul style="margin-top: 10px;">
@@ -418,7 +420,7 @@
             <!-- 第17页：时间复杂度 -->
             <section>
                 <h2>时间复杂度</h2>
-                <div style="text-align: left; margin: 20px; font-size: 1.0em;">
+                <div style="text-align: left; margin: 40px; font-size: 1.1em;">
                     <p><strong>使用最小堆实现</strong>：</p>
                     <table style="margin-top: 30px; font-size: 0.95em;">
                         <tr><th>操作</th><th>复杂度</th><th>次数</th></tr>
@@ -426,7 +428,7 @@
                         <tr><td>取最小值</td><td>O(log n)</td><td>2×(n-1)次</td></tr>
                         <tr><td>插入新节点</td><td>O(log n)</td><td>n-1次</td></tr>
                     </table>
-                    <div class="fragment" style="margin-top: 25px; padding: 20px; background: #e8f4fd; border-radius: 5px;">
+                    <div class="fragment" style="margin-top: 40px; padding: 20px; background: #e8f4fd; border-radius: 5px;">
                         <p><strong>总复杂度</strong>：</p>
                         <p style="margin-top: 10px;">O(n) + O(n log n) = <span class="highlight">O(n log n)</span></p>
                         <p style="margin-top: 15px; font-size: 0.9em;">其中 n 是字符种类数</p>
@@ -439,7 +441,7 @@
             <!-- 第18页：文件压缩 -->
             <section>
                 <h2>文件压缩</h2>
-                <div style="text-align: left; margin: 20px; font-size: 1.0em;">
+                <div style="text-align: left; margin: 40px; font-size: 1.05em;">
                     <p><strong>ZIP / GZIP</strong>：</p>
                     <ul style="margin-top: 15px;">
                         <li>DEFLATE算法 = LZ77（字典压缩）+ 哈夫曼编码</li>
@@ -460,7 +462,7 @@
             <!-- 第19页：多媒体与通信 -->
             <section>
                 <h2>多媒体与通信</h2>
-                <div style="text-align: left; margin: 20px; font-size: 1.0em;">
+                <div style="text-align: left; margin: 40px; font-size: 1.05em;">
                     <p><strong>MP3音频压缩</strong>：</p>
                     <ul style="margin-top: 15px;">
                         <li>心理声学模型 → 量化 → 哈夫曼编码</li>
@@ -484,20 +486,20 @@
             <!-- 第20页：核心要点回顾 -->
             <section>
                 <h2>核心要点回顾</h2>
-                <div style="text-align: left; margin: 20px; font-size: 1.0em;">
-                    <div style="padding: 15px; background: #e8f4fd; border-radius: 5px; margin-bottom: 15px;">
+                <div style="text-align: left; margin: 40px; font-size: 1.1em;">
+                    <div style="padding: 20px; background: #e8f4fd; border-radius: 5px; margin-bottom: 20px;">
                         <p><strong>① 变长编码思想</strong></p>
                         <p style="margin-top: 10px;">高频字符用短编码，低频字符用长编码</p>
                     </div>
-                    <div class="fragment" style="padding: 15px; background: #d4edda; border-radius: 5px; margin-bottom: 15px;">
+                    <div class="fragment" style="padding: 20px; background: #d4edda; border-radius: 5px; margin-bottom: 20px;">
                         <p><strong>② 前缀码保证无歧义</strong></p>
                         <p style="margin-top: 10px;">任何编码都不是另一个的前缀 → 唯一解码</p>
                     </div>
-                    <div class="fragment" style="padding: 15px; background: #fff3cd; border-radius: 5px; margin-bottom: 15px;">
+                    <div class="fragment" style="padding: 20px; background: #fff3cd; border-radius: 5px; margin-bottom: 20px;">
                         <p><strong>③ 贪心构建最优树</strong></p>
                         <p style="margin-top: 10px;">每次合并频率最小的两个节点</p>
                     </div>
-                    <div class="fragment" style="padding: 15px; background: #f8d7da; border-radius: 5px;">
+                    <div class="fragment" style="padding: 20px; background: #f8d7da; border-radius: 5px;">
                         <p><strong>④ WPL最小</strong></p>
                         <p style="margin-top: 10px;">哈夫曼编码是最优前缀码</p>
                     </div>
@@ -529,7 +531,7 @@
             <!-- 第22页：参考资料与延伸 -->
             <section>
                 <h2>参考资料与延伸</h2>
-                <div style="text-align: left; margin: 20px; font-size: 1.0em;">
+                <div style="text-align: left; margin: 40px; font-size: 1em;">
                     <p><strong>教材章节</strong>：</p>
                     <ul style="margin-top: 10px;">
                         <li>数据结构教材第6章：树与二叉树</li>
@@ -561,41 +563,8 @@
             transitionSpeed: 'default',
             controls: true,
             progress: true,
-            center: true,
-            slideNumber: 'c/t',
-            width: 960,
-            height: 750,
-            margin: 0.04
-        });
-
-        Reveal.on('ready', function() {
-            var maxH = 750;
-            document.querySelectorAll('.reveal .slides > section').forEach(function(sec) {
-                var fragments = sec.querySelectorAll('.fragment');
-                fragments.forEach(function(f) {
-                    f.classList.add('visible');
-                });
-
-                var wrapper = document.createElement('div');
-                wrapper.className = 'slide-scaler';
-                while (sec.firstChild) wrapper.appendChild(sec.firstChild);
-                sec.appendChild(wrapper);
-
-                void wrapper.offsetHeight;
-                var contentH = wrapper.scrollHeight;
-
-                if (contentH > maxH - 30) {
-                    var scale = Math.max((maxH - 30) / contentH, 0.6);
-                    wrapper.style.transformOrigin = 'top center';
-                    wrapper.style.transform = 'scale(' + scale + ')';
-                    wrapper.style.width = (100 / scale) + '%';
-                    wrapper.style.marginLeft = '-' + ((100 / scale - 100) / 2) + '%';
-                }
-
-                fragments.forEach(function(f) {
-                    f.classList.remove('visible');
-                });
-            });
+            center: false,
+            slideNumber: 'c/t'
         });
     </script>
 </body>
