@@ -16,7 +16,8 @@
         .reveal ul, .reveal ol { margin: 0.3em 0; }
         .reveal li { margin: 0.15em 0; font-size: 0.82em; line-height: 1.4; }
         .reveal table { font-size: 0.7em; margin: 0.3em auto; }
-        .reveal td, .reveal th { padding: 4px 6px; border: 1px solid #ddd; }
+        .reveal td, .reveal th { padding: 4px 6px; border: 1px solid #ddd; text-align: left; }
+        .keep-left { text-align: left; }
         .highlight { color: #e74c3c; font-weight: bold; }
         .tree-node { fill: #3498db; stroke: #2c3e50; stroke-width: 2; }
         .tree-text { fill: white; font-size: 14px; font-weight: bold; }
@@ -41,6 +42,7 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
+            text-align: center;
         }
 
         .reveal .slides section > div {
@@ -48,7 +50,7 @@
         }
 
         /* 双栏布局辅助 */
-        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5em; text-align: left; }
+        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5em; }
     </style>
 </head>
 <body>
@@ -67,7 +69,7 @@
             <!-- 第2页：编码问题：等长编码的浪费 -->
             <section>
                 <h2>编码问题：等长编码的浪费</h2>
-                <div style="text-align: left; margin: 1em 0;">
+                <div style="margin: 1em 0;">
                     <p><strong>ASCII编码</strong>：每个字符用 <span class="highlight">8位</span> 表示</p>
                     <p style="margin-top: 0.5em;"><strong>示例字符串</strong>：<span class="highlight" style="font-size: 1.2em;">ABRACADABRA</span></p>
                     <table style="margin-top: 0.8em;">
@@ -88,7 +90,7 @@
             <!-- 第3页：核心挑战与哈夫曼的贡献 -->
             <section>
                 <h2>核心挑战与哈夫曼的贡献</h2>
-                <div style="text-align: left; margin: 0 15px;">
+                <div style="margin: 0 15px;">
                     <div style="padding: 10px; background: #fff3cd; border-radius: 5px; margin-bottom: 0.5em;">
                         <p><strong>⚠️ 核心挑战</strong>：高频字符用短编码 → 变长编码有<span class="highlight">歧义问题</span></p>
                         <p style="margin-top: 0.2em; font-size: 0.9em;">A=0, B=01 → "001" 是 "AAB" 还是 "AB"？</p>
@@ -107,7 +109,7 @@
             <section>
                 <h2>构建哈夫曼树 — 算法输入 + 步骤</h2>
                 <div style="margin: 0 10px;">
-                    <p style="text-align: left;"><strong>输入</strong>：频率表（每个字符作为叶节点）</p>
+                    <p style=""><strong>输入</strong>：频率表（每个字符作为叶节点）</p>
                     <svg width="650" height="100" style="margin: 0.5em 0;" overflow="visible">
                         <rect x="50" y="20" width="80" height="60" rx="10" class="tree-node"/>
                         <text x="90" y="55" text-anchor="middle" class="tree-text">A: 5</text>
@@ -120,7 +122,7 @@
                         <rect x="570" y="20" width="80" height="60" rx="10" class="tree-node"/>
                         <text x="610" y="55" text-anchor="middle" class="tree-text">D: 1</text>
                     </svg>
-                    <div class="fragment" style="padding: 12px; background: #e8f4fd; border-radius: 5px; text-align: left;">
+                    <div class="fragment" style="padding: 12px; background: #e8f4fd; border-radius: 5px; ">
                         <p><strong>算法步骤</strong>（重复直到只剩一个节点）：</p>
                         <ol>
                             <li>取频率<span class="highlight">最小</span>的两个节点</li>
@@ -135,7 +137,7 @@
             <section>
                 <h2>构建演示（第1-2步）</h2>
                 <div style="margin: 0 10px;">
-                    <p style="text-align: left;"><strong>第1步</strong>：C(1) + D(1) → CD(2)</p>
+                    <p style=""><strong>第1步</strong>：C(1) + D(1) → CD(2)</p>
                     <svg width="650" height="135" style="margin-top: 0.2em;" overflow="visible">
                         <circle cx="480" cy="40" r="25" style="fill: #e67e22; stroke: #2c3e50; stroke-width: 2;"/>
                         <text x="480" y="45" text-anchor="middle" class="tree-text">2</text>
@@ -148,7 +150,7 @@
                     </svg>
                     <p style="margin-top: 0.4em;">→ 4个节点：A(5), B(2), R(2), <span style="color: #e67e22;">CD(2)</span></p>
 
-                    <p class="fragment" style="text-align: left; margin-top: 0.8em;"><strong>第2步</strong>：B(2) + CD(2) → BCD(4)</p>
+                    <p class="fragment" style="margin-top: 0.8em;"><strong>第2步</strong>：B(2) + CD(2) → BCD(4)</p>
                     <svg class="fragment" width="650" height="185" style="margin-top: 0.3em;" overflow="visible">
                         <circle cx="480" cy="30" r="25" style="fill: #27ae60; stroke: #2c3e50; stroke-width: 2;"/>
                         <text x="480" y="35" text-anchor="middle" class="tree-text">4</text>
@@ -173,7 +175,7 @@
             <section>
                 <h2>构建演示（第3-4步）</h2>
                 <div style="margin: 0 10px;">
-                    <p style="text-align: left;"><strong>第3步</strong>：R(2) + BCD(4) → RBCD(6)</p>
+                    <p style=""><strong>第3步</strong>：R(2) + BCD(4) → RBCD(6)</p>
                     <svg width="650" height="230" style="margin-top: 3px;" overflow="visible">
                         <circle cx="430" cy="25" r="25" style="fill: #8e44ad; stroke: #2c3e50; stroke-width: 2;"/>
                         <text x="430" y="30" text-anchor="middle" class="tree-text">6</text>
@@ -197,7 +199,7 @@
                         <text x="580" y="213" text-anchor="middle" style="font-size: 11px; fill: white; font-weight: bold;">D:1</text>
                     </svg>
                     <p style="margin-top: 0.3em;">→ 2个节点：A(5), <span style="color: #8e44ad;">RBCD(6)</span></p>
-                    <p class="fragment" style="text-align: left; margin-top: 0.5em;"><strong>第4步</strong>：A(5) + RBCD(6) → 根(11) ✓</p>
+                    <p class="fragment" style="margin-top: 0.5em;"><strong>第4步</strong>：A(5) + RBCD(6) → 根(11) ✓</p>
                 </div>
             </section>
 
@@ -241,7 +243,7 @@
                         <rect x="640" y="310" width="45" height="35" rx="6" style="fill: #e74c3c; stroke: #2c3e50; stroke-width: 2;"/>
                         <text x="662" y="331" text-anchor="middle" class="tree-text">D:1</text>
                     </svg>
-                    <p style="text-align: left; margin-top: 0.3em;">左分支=<span class="highlight">0</span>，右分支=<span class="highlight">1</span></p>
+                    <p style="margin-top: 0.3em;">左分支=<span class="highlight">0</span>，右分支=<span class="highlight">1</span></p>
                     <p class="fragment" style="color: #27ae60;">✓ 频率越高，路径越短，编码越短</p>
                 </div>
             </section>
@@ -249,7 +251,7 @@
             <!-- 第10页：为什么这样构建？ -->
             <section>
                 <h2>为什么这样构建？</h2>
-                <div style="text-align: left; margin: 0 15px; font-size: 0.9em;">
+                <div style="margin: 0 15px; font-size: 0.9em;">
                     <p class="fragment"><strong>直觉解释</strong>：</p>
                     <ul class="fragment" style="margin-top: 0.5em;">
                         <li>频率<span class="highlight">低</span>的字符<strong>先</strong>合并 → 在树的<strong>深处</strong> → 编码<strong>更长</strong></li>
@@ -268,7 +270,7 @@
             <section>
                 <h2>生成编码表</h2>
                 <div style="margin: 0 15px;">
-                    <p style="text-align: left;"><strong>从根到叶</strong>：左分支=0，右分支=1</p>
+                    <p style=""><strong>从根到叶</strong>：左分支=0，右分支=1</p>
                     <table style="margin-top: 0.5em; font-size: 0.7em;">
                         <tr><th>字符</th><th>频率</th><th>编码路径</th><th>哈夫曼编码</th><th>编码长度</th></tr>
                         <tr><td>A</td><td>5</td><td>左</td><td class="highlight">0</td><td>1位</td></tr>
@@ -277,7 +279,7 @@
                         <tr><td>C</td><td>1</td><td>右→右→右→左</td><td class="highlight">1110</td><td>4位</td></tr>
                         <tr><td>D</td><td>1</td><td>右→右→右→右</td><td class="highlight">1111</td><td>4位</td></tr>
                     </table>
-                    <div class="fragment" style="margin-top: 0.5em; padding: 10px; background: #d4edda; border-radius: 5px; text-align: left;">
+                    <div class="fragment" style="margin-top: 0.5em; padding: 10px; background: #d4edda; border-radius: 5px; ">
                         <p><strong>✓ 验证前缀性</strong>：没有任何编码是另一个编码的前缀 → 可以无歧义解码</p>
                     </div>
                 </div>
@@ -287,8 +289,8 @@
             <section>
                 <h2>编码过程 + 压缩效果</h2>
                 <div style="margin: 0 15px;">
-                    <p style="text-align: left;"><strong>原字符串</strong>：<span class="highlight" style="font-size: 1.1em;">ABRACADABRA</span></p>
-                    <div style="margin-top: 0.5em; padding: 10px; background: #f8f9fa; border-radius: 5px; text-align: left;">
+                    <p style=""><strong>原字符串</strong>：<span class="highlight" style="font-size: 1.1em;">ABRACADABRA</span></p>
+                    <div style="margin-top: 0.5em; padding: 10px; background: #f8f9fa; border-radius: 5px; ">
                         <p><strong>编码过程</strong>：</p>
                         <p style="margin-top: 0.3em; font-family: monospace; font-size: 0.9em;">
                             A→<span class="highlight">0</span> |
@@ -318,7 +320,7 @@
             <!-- 第13页：解码过程 -->
             <section>
                 <h2>解码过程</h2>
-                <div style="text-align: left; margin: 0 15px; font-size: 0.88em;">
+                <div style="margin: 0 15px; font-size: 0.88em;">
                     <p><strong>算法</strong>：</p>
                     <ol style="margin-top: 0.5em;">
                         <li>从根节点开始</li>
@@ -342,8 +344,8 @@
             <section>
                 <h2>解码演示</h2>
                 <div style="margin: 0 15px; font-size: 0.75em;">
-                    <p style="text-align: left;"><strong>比特流</strong>：<span class="highlight" style="font-family: monospace;">0·110·10·0·1110·0·1111·0·110·10·0</span></p>
-                    <div style="padding: 10px; background: #f8f9fa; border-radius: 5px; text-align: left;">
+                    <p style=""><strong>比特流</strong>：<span class="highlight" style="font-family: monospace;">0·110·10·0·1110·0·1111·0·110·10·0</span></p>
+                    <div style="padding: 10px; background: #f8f9fa; border-radius: 5px; ">
                         <p><strong>逐步解码</strong>（从根出发，0=左，1=右，到达叶节点输出字符）：</p>
                         <table style="width: 100%; margin-top: 0.3em; font-size: 0.95em; border-collapse: collapse;">
                             <tr><td><span class="highlight">0</span>→A</td><td><span class="highlight">110</span>→B</td><td><span class="highlight">10</span>→R</td><td><span class="highlight">0</span>→A</td></tr>
@@ -360,7 +362,7 @@
             <!-- 第15页：最优性与时间复杂度 -->
             <section>
                 <h2>最优性与时间复杂度</h2>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1em; text-align: left; margin: 0 10px;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1em; margin: 0 10px;">
                     <div>
                         <div style="padding: 10px; background: #e8f4fd; border-radius: 5px; height: 100%;">
                             <p><strong>定理</strong>：哈夫曼编码是<span class="highlight">最优前缀码</span></p>
@@ -391,12 +393,12 @@
             <section>
                 <h2>唯一性 + WPL计算</h2>
                 <div style="margin: 0 15px;">
-                    <div style="text-align: left; padding: 12px; background: #fff3cd; border-radius: 5px;">
+                    <div style="padding: 12px; background: #fff3cd; border-radius: 5px;">
                         <p><strong>⚠️ 哈夫曼树不唯一</strong></p>
                         <p style="margin-top: 0.3em;">当存在频率相同的节点时，合并顺序可以不同</p>
                         <p style="margin-top: 0.3em;">但所有哈夫曼树的<span class="highlight">WPL相同</span>（都是最优的）</p>
                     </div>
-                    <div class="fragment" style="margin-top: 0.8em; text-align: left;">
+                    <div class="fragment" style="margin-top: 0.8em; ">
                         <p><strong>WPL计算</strong>：加权路径长度 = Σ(频率 × 编码长度)</p>
                         <table style="margin-top: 0.5em;">
                             <tr><th>字符</th><th>频率</th><th>编码长度</th><th>贡献</th></tr>
@@ -416,7 +418,7 @@
             <!-- 第18页：实际应用 -->
             <section>
                 <h2>实际应用</h2>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.6em; text-align: left; margin: 0 10px;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.6em; margin: 0 10px;">
                     <div class="fragment" style="padding: 10px; background: #e8f4fd; border-radius: 5px;">
                         <p><strong>ZIP / GZIP</strong></p>
                         <p style="font-size: 0.85em;">DEFLATE = LZ77 + 哈夫曼编码</p>
@@ -430,7 +432,7 @@
                         <p style="font-size: 0.85em;">静态哈夫曼表压缩HTTP头部</p>
                     </div>
                 </div>
-                <div class="fragment" style="margin-top: 0.5em; padding: 8px 12px; background: #fff3cd; border-radius: 5px; text-align: left; margin-left: 10px; margin-right: 10px;">
+                <div class="fragment" style="margin-top: 0.5em; padding: 8px 12px; background: #fff3cd; border-radius: 5px; margin-left: 10px; margin-right: 10px;">
                     <p><strong>关键特点</strong>：哈夫曼编码是<span class="highlight">无损压缩</span>，可完美还原原始数据</p>
                 </div>
             </section>
@@ -440,7 +442,7 @@
             <!-- 第19页：核心要点回顾 -->
             <section>
                 <h2>核心要点回顾</h2>
-                <div style="text-align: left; margin: 0 15px; font-size: 0.85em;">
+                <div style="margin: 0 15px; font-size: 0.85em;">
                     <div style="padding: 10px; background: #e8f4fd; border-radius: 5px; margin-bottom: 8px;">
                         <p><strong>① 变长编码思想</strong>：高频字符用短编码，低频字符用长编码</p>
                     </div>
