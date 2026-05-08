@@ -29,21 +29,25 @@
             height: auto;
             display: block;
             margin: 0 auto;
+            /* 限制最大高度，防止超大SVG撑爆页面 */
+            max-height: 50vh;
         }
 
         /* ====== Section 布局 ====== */
         .reveal .slides section {
-            padding: 0.8vh 1.5vw !important;
+            padding: 1vh 2vw !important;
             box-sizing: border-box;
             height: 100%;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            overflow: hidden !important;
         }
 
         .reveal .slides section > div {
             margin: 0.15em 0;
+            /* 内容溢出时显示滚动条，比隐藏或缩放更好 */
+            overflow-y: auto;
+            max-height: 100%;
         }
     </style>
 </head>
@@ -132,7 +136,7 @@
                 <h2>构建演示（第1-2步）</h2>
                 <div style="margin: 0 10px;">
                     <p style="text-align: left;"><strong>第1步</strong>：C(1) + D(1) → CD(2)</p>
-                    <svg width="650" height="130" style="margin-top: 0.3em;">
+                    <svg width="650" height="110" style="margin-top: 0.2em;">
                         <circle cx="480" cy="40" r="25" style="fill: #e67e22; stroke: #2c3e50; stroke-width: 2;"/>
                         <text x="480" y="45" text-anchor="middle" class="tree-text">2</text>
                         <line x1="465" y1="60" x2="440" y2="85" class="tree-edge"/>
@@ -170,7 +174,7 @@
                 <h2>构建演示（第3-4步）</h2>
                 <div style="margin: 0 10px;">
                     <p style="text-align: left;"><strong>第3步</strong>：R(2) + BCD(4) → RBCD(6)</p>
-                    <svg width="650" height="230" style="margin-top: 5px;">
+                    <svg width="650" height="210" style="margin-top: 3px;">
                         <circle cx="430" cy="25" r="25" style="fill: #8e44ad; stroke: #2c3e50; stroke-width: 2;"/>
                         <text x="430" y="30" text-anchor="middle" class="tree-text">6</text>
                         <line x1="410" y1="45" x2="350" y2="75" class="tree-edge"/>
@@ -201,7 +205,7 @@
             <section>
                 <h2>完整哈夫曼树</h2>
                 <div style="margin: 0 10px;">
-                    <svg width="650" height="300" viewBox="0 0 700 360" style="margin-top: 5px;">
+                    <svg width="650" height="280" viewBox="0 0 700 360" style="margin-top: 2px;">
                         <circle cx="350" cy="30" r="28" style="fill: #2c3e50; stroke: #2c3e50; stroke-width: 2;"/>
                         <text x="350" y="35" text-anchor="middle" class="tree-text">11</text>
                         <line x1="325" y1="53" x2="200" y2="100" class="tree-edge"/>
@@ -467,51 +471,35 @@
             slideNumber: 'c/t'
         });
 
-        // ====== 自动缩放系统：检测溢出并缩放每页内容 ======
-        function autoScaleSlide(slide) {
-            if (!slide) return;
+        // ====== 自动高度适应 ======
+        // 不缩放，而是让 CSS clamp() + SVG max-height + overflow-y: auto 自然适应
+        // 这避免了 transform:scale() 导致的布局偏移问题
 
-            // 移除旧缩放
-            slide.style.transform = '';
-
-            // 获取 slide 的实际可见高度（视口高度）
-            const container = document.querySelector('.reveal');
-            const containerHeight = container ? container.clientHeight : window.innerHeight;
-
-            // 获取内容实际高度
-            // Reveal.js 的 section 有 flex column justify-center
-            const scrollHeight = slide.scrollHeight;
-
-            // 计算需要的缩放比例（留 5% 安全边距）
-            if (scrollHeight > containerHeight) {
-                const scale = (containerHeight / scrollHeight) * 0.95;
-                const finalScale = Math.max(scale, 0.4); // 最小 40%，避免缩到看不见
-                slide.style.transform = `scale(${finalScale})`;
-                slide.style.transformOrigin = 'center center';
-            }
-        }
-
-        function autoScaleAllSlides() {
+        function adjustSlideLayout() {
             const slides = document.querySelectorAll('.reveal .slides section');
-            slides.forEach(autoScaleSlide);
+            const revealEl = document.querySelector('.reveal');
+            const containerH = revealEl ? revealEl.clientHeight : window.innerHeight;
+
+            slides.forEach(slide => {
+                const divs = slide.querySelectorAll(':scope > div');
+                divs.forEach(div => {
+                    // 如果内容超出，启用滚动；否则居中显示
+                    if (div.scrollHeight > containerH * 0.85) {
+                        div.style.overflowY = 'auto';
+                    } else {
+                        div.style.overflowY = 'visible';
+                    }
+                });
+            });
         }
 
-        function autoScaleCurrentSlide() {
-            const currentSlide = Reveal.getCurrentSlide();
-            autoScaleSlide(currentSlide);
-        }
+        Reveal.on('ready', adjustSlideLayout);
+        Reveal.on('slidechanged', adjustSlideLayout);
 
-        // 初始化：缩放所有幻灯片
-        Reveal.on('ready', autoScaleAllSlides);
-
-        // 切换幻灯片时重新缩放
-        Reveal.on('slidechanged', autoScaleCurrentSlide);
-
-        // 窗口大小变化时重新缩放当前页
         let resizeTimer;
         window.addEventListener('resize', () => {
             clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(autoScaleCurrentSlide, 150);
+            resizeTimer = setTimeout(adjustSlideLayout, 200);
         });
     </script>
 </body>
